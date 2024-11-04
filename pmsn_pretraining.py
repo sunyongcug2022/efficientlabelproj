@@ -1,5 +1,6 @@
 import copy
 
+import lightly.data as data
 import torch
 import torchvision
 from lightly.loss import PMSNLoss
