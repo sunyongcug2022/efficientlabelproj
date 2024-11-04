@@ -103,7 +103,7 @@ def pretraining_pmsn(configs, dataloader):
     )
 
     model = PMSN(vit)
-    model.to(device)
+    model.to(configs['device'])
     # # or use a torchvision ViT backbone:
     # vit = torchvision.models.vit_b_32(pretrained=False)
     # model = PMSN(vit)
@@ -144,6 +144,5 @@ def pretraining_pmsn(configs, dataloader):
             optimizer.zero_grad()
         avg_loss = total_loss / len(dataloader)
         print(f"epoch: {epoch:>02}, loss: {avg_loss:.5f}")
-
 
     return model
