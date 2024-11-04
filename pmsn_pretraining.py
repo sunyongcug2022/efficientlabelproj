@@ -92,6 +92,7 @@ def get_dataloader_ssl(
 
 
 def pretraining_pmsn(configs, dataloader):
+    device = configs['device']
     # ViT small configuration (ViT-S/16)
     vit = torchvision.models.VisionTransformer(
         image_size=224,
@@ -103,7 +104,7 @@ def pretraining_pmsn(configs, dataloader):
     )
 
     model = PMSN(vit)
-    model.to(configs['device'])
+    model.to(device)
     # # or use a torchvision ViT backbone:
     # vit = torchvision.models.vit_b_32(pretrained=False)
     # model = PMSN(vit)
