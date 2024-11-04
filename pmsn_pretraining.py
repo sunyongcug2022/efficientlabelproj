@@ -2,15 +2,14 @@ import copy
 
 import torch
 import torchvision
-from torch import nn
-
 from lightly.loss import PMSNLoss
 from lightly.models import utils
 from lightly.models.modules import MaskedVisionTransformerTorchvision
 from lightly.models.modules.heads import MSNProjectionHead
 from lightly.transforms import MSNTransform
-
 from lightly.transforms.utils import IMAGENET_NORMALIZE
+from torch import nn
+
 
 class PMSN(nn.Module):
     def __init__(self, vit, mask_ratio=0.15, output_dim=512):
@@ -45,9 +44,10 @@ class PMSN(nn.Module):
 
 
 def get_dataloader_ssl(
+        configs,
         train_data_root='/kaggle/input/siri-whu-train-test-dataset/Dataset/train/',
-        test_data_root='/kaggle/input/siri-whu-train-test-dataset/Dataset/test/'
-):
+        test_data_root='/kaggle/input/siri-whu-train-test-dataset/Dataset/test/'):
+
     preprocess = MSNTransform()
 
     train_dataset = torchvision.datasets.ImageFolder(
@@ -143,3 +143,6 @@ def pretraining_pmsn(configs, dataloader):
             optimizer.zero_grad()
         avg_loss = total_loss / len(dataloader)
         print(f"epoch: {epoch:>02}, loss: {avg_loss:.5f}")
+
+
+    return model
