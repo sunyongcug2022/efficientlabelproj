@@ -232,8 +232,6 @@ def get_clip_model_feat_dims(model_backbone):
 
 
 '''Run Tip Adaptet For Resnet and VIT'''
-
-
 def run_tip_adapter_ensemble(cfg, cache_keys_resnet, cache_values_resnet,
                              cache_keys_vit, cache_values_vit,
                              val_features_resnet, val_features_vit, val_labels,
