@@ -26,7 +26,7 @@ class PMSN(nn.Module):
         utils.deactivate_requires_grad(self.backbone)
         utils.deactivate_requires_grad(self.projection_head)
 
-        self.prototypes = nn.Linear(256, 1024, bias=False).weight
+        self.prototypes = nn.Linear(output_dim, 1024, bias=False).weight
 
     def forward(self, images):
         out = self.backbone(images=images)
