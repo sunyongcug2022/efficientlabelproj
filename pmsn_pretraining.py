@@ -91,7 +91,7 @@ def get_dataloader_ssl(
     return dataloader_train, dataloader_test
 
 
-def pretraining_pmsn(configs, dataloader):
+def pretraining_pmsn(configs, dataloader, train_iter=10):
     device = configs['device']
     # ViT small configuration (ViT-S/16)
     vit = torchvision.models.VisionTransformer(
@@ -119,7 +119,7 @@ def pretraining_pmsn(configs, dataloader):
     optimizer = torch.optim.AdamW(params, lr=1.5e-4)
 
     print("Starting Training")
-    for epoch in range(10):
+    for epoch in range(train_iter):
         total_loss = 0
         for batch in dataloader:
             views = batch[0]
