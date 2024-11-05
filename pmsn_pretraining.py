@@ -13,7 +13,7 @@ from torch import nn
 
 
 class PMSN(nn.Module):
-    def __init__(self, vit, mask_ratio=0.15, output_dim=512):
+    def __init__(self, vit, mask_ratio=0.15, output_dim=512, proto_dim=512):
         super().__init__()
 
         self.mask_ratio = mask_ratio
@@ -26,7 +26,7 @@ class PMSN(nn.Module):
         utils.deactivate_requires_grad(self.backbone)
         utils.deactivate_requires_grad(self.projection_head)
 
-        self.prototypes = nn.Linear(output_dim, 1024, bias=False).weight
+        self.prototypes = nn.Linear(output_dim, proto_dim, bias=False).weight
 
     def forward(self, images):
         out = self.backbone(images=images)
