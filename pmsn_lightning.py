@@ -1,9 +1,4 @@
-# This example requires the following dependencies to be installed:
-# pip install lightly
 
-# Note: The model and training settings do not follow the reference settings
-# from the paper. The settings are chosen such that the example can easily be
-# run on a small dataset with a single GPU.
 import copy
 
 import lightly.data as data
@@ -139,17 +134,8 @@ def get_dataloader_ssl(
 def pretraining_pmsn(configs, dataloader, train_iter=10):
     model = PMSN()
 
-    transform = MSNTransform()
-    # we ignore object detection annotations by setting target_transform to return 0
-    dataset = torchvision.datasets.VOCDetection(
-        "datasets/pascal_voc",
-        download=True,
-        transform=transform,
-        target_transform=lambda t: 0,
-    )
-
     accelerator = "gpu" if torch.cuda.is_available() else "cpu"
 
-    trainer = pl.Trainer(max_epochs=10, devices=1, accelerator=accelerator)
+    trainer = pl.Trainer(max_epochs=train_iter, devices=1, accelerator=accelerator)
     trainer.fit(model=model, train_dataloaders=dataloader)
     return model
