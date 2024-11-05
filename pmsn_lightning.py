@@ -132,7 +132,7 @@ def get_dataloader_ssl(
 
 
 def pretraining_pmsn(configs, dataloader, train_iter=10):
-    model = PMSN()
+    model = PMSN(mask_ratio=0.15, output_dim=512, prototype_dim=512)
 
     accelerator = "gpu" if torch.cuda.is_available() else "cpu"
 
