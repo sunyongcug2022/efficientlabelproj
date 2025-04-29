@@ -126,10 +126,8 @@ def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, ba
     return dataloader_train_ssl, dataloader_test_ssl
 
 
-def trained_for_ssl(ssl_model, input_size, batch_size, path_to_data,
-                    max_epochs):
-    dataloader_train_ssl, dataloader_test_ssl = create_data_loader_ssl(
-        input_size, batch_size)
+def trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs):
+    dataloader_train_ssl, dataloader_test_ssl = create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, batch_size)
     trainer = pl.Trainer(max_epochs=max_epochs,
                          devices=1,
                          accelerator=accelerator)
@@ -139,8 +137,7 @@ def trained_for_ssl(ssl_model, input_size, batch_size, path_to_data,
     return ssl_model
 
 
-def get_pretrain_model(input_size, batch_size, path_to_data, max_epochs):
+def get_pretrain_model(path_to_train_data, path_to_test_data, input_size, batch_size, path_to_data, max_epochs):
     ssl_model = SimSiam()
-    trained_ssl_model = trained_for_ssl(ssl_model, input_size, batch_size,
-                                        path_to_data, max_epochs)
+    trained_ssl_model = trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs)
     return trained_ssl_model
