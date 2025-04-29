@@ -75,7 +75,7 @@ def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, ba
     # SSLTransform = SimSiamTransform(input_size=input_size)
 
     # define the augmentations for self-supervised learning
-    transform = SimCLRTransform(
+    SSLTransform = SimCLRTransform(
         input_size=input_size,
         hf_prob=0.5, # require invariance to flips and rotations
         vf_prob=0.5,
