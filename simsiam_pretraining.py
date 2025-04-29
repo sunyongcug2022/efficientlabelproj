@@ -70,7 +70,7 @@ class SimSiam(pl.LightningModule):
         return optim
 
 
-def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, batch_size):
+def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, batch_size, gaussian_blur=0.1):
     # define the augmentations for self-supervised learning
     # SSLTransform = SimSiamTransform(input_size=input_size)
 
@@ -88,6 +88,7 @@ def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, ba
         cj_contrast=0.1,
         cj_hue=0.1,
         cj_sat=0.1,
+        gaussian_blur = gaussian_blur, # gaussian_blur是模糊强度
     )
 
 
