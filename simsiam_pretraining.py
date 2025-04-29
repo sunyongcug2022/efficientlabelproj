@@ -16,7 +16,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import DeviceStatsMonitor, LearningRateMonitor
 
 from lightly.data import LightlyDataset
-from lightly.transforms import SimSiamTransform, utils
+from lightly.transforms import SimSiamTransform, SimCLRTransform, utils
 
 from lightly.loss import NegativeCosineSimilarity
 from lightly.models.modules import SimSiamPredictionHead, SimSiamProjectionHead
