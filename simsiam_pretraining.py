@@ -132,8 +132,7 @@ def trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size
                          devices=1,
                          accelerator=accelerator)
     trainer.fit(ssl_model, dataloader_train_ssl)
-    print(logged_metrics)
-
+    
     return ssl_model
 
 
