@@ -138,5 +138,7 @@ def trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size
 
 def get_pretrain_model(path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs):
     ssl_model = SimSiam()
+    if torch.cuda.is_available():
+        ssl_model.cuda()  # 将模型移动到 GPU
     trained_ssl_model = trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs)
     return trained_ssl_model
