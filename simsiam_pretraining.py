@@ -78,7 +78,7 @@ def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, ba
     dataloader_train_ssl = torch.utils.data.DataLoader(
         dataset_train_ssl,
         batch_size=batch_size,
-        num_workers=num_workers,
+        # num_workers=num_workers,
         # sampler=train_sampler,
     )
 
@@ -97,8 +97,8 @@ def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, ba
     dataloader_test_ssl = torch.utils.data.DataLoader(
         dataset_test_ssl,
         batch_size=batch_size,
-        num_workers=num_workers,
-        sampler=valid_sampler,
+        # num_workers=num_workers,
+        # sampler=valid_sampler,
     )
 
     return dataloader_train_ssl, dataloader_test_ssl
