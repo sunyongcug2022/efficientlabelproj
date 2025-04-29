@@ -34,6 +34,10 @@ accelerator = "gpu" if torch.cuda.is_available() else "cpu"
 devices_num = 1
 
 
+out_dim = proj_hidden_dim = 512 # dimension of the output of the prediction and projection heads
+pred_hidden_dim = 128           # the prediction head uses a bottleneck architecture
+
+
 class SimSiam(pl.LightningModule):
 
     def __init__(self):
@@ -68,7 +72,24 @@ class SimSiam(pl.LightningModule):
 
 def create_data_loader_ssl(path_to_train_data, path_to_test_data, input_size, batch_size):
     # define the augmentations for self-supervised learning
-    SSLTransform = SimSiamTransform(input_size=input_size)
+    # SSLTransform = SimSiamTransform(input_size=input_size)
+
+    # define the augmentations for self-supervised learning
+    transform = SimCLRTransform(
+        input_size=input_size,
+        hf_prob=0.5, # require invariance to flips and rotations
+        vf_prob=0.5,
+        rr_prob=0.5,
+        # satellite images are all taken from the same height
+        # so we use only slight random cropping
+        min_scale=0.5,
+        cj_prob=0.2, # use a weak color jitter for invariance w.r.t small color changes
+        cj_bright=0.1,
+        cj_contrast=0.1,
+        cj_hue=0.1,
+        cj_sat=0.1,
+    )
+
 
     # create a lightly dataset for training with augmentations
     dataset_train_ssl = LightlyDataset(input_dir=path_to_train_data,
