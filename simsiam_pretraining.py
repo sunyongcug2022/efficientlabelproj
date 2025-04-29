@@ -137,7 +137,7 @@ def trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size
     return ssl_model
 
 
-def get_pretrain_model(path_to_train_data, path_to_test_data, input_size, batch_size, path_to_data, max_epochs):
+def get_pretrain_model(path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs):
     ssl_model = SimSiam()
     trained_ssl_model = trained_for_ssl(ssl_model, path_to_train_data, path_to_test_data, input_size, batch_size, max_epochs)
     return trained_ssl_model
